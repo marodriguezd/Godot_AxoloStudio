@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://by1w6ukrhxo1g"]
+
+[ext_resource type="Script" path="res://UserInterface/player_ui.gd" id="1_vcgxc"]
+[ext_resource type="Texture2D" uid="uid://blngqhc1l81s7" path="res://Objects/Assets/tile_0151.png" id="2_278ul"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kplob"]
+bg_color = Color(0, 0, 0, 0.352941)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53p3h"]
+bg_color = Color(0.815395, 0, 0.187053, 1)
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vcgxc")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 15.0
+theme_override_styles/background = SubResource("StyleBoxFlat_kplob")
+theme_override_styles/fill = SubResource("StyleBoxFlat_53p3h")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 17.0
+offset_right = 105.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_278ul")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.805, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "0"
+vertical_alignment = 1

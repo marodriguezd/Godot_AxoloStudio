@@ -7,6 +7,9 @@ const JUMP_VELOCITY = -400.0
 @onready var sprite: Sprite2D = $Sprite
 @onready var animation: AnimationPlayer = $AnimationPlayer
 
+@onready var health_component: Node = $HealthComponent
+@onready var player_ui: PlayerUI = $CanvasLayer/PlayerUI
+
 func _ready():
 	animation.play("idle")
 
@@ -41,3 +44,8 @@ func update_animation():
 		animation.play("walk")
 	else:
 		animation.play("idle")
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	#print(area.name)
+	area.get_parent().get_parent().queue_free()

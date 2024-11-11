@@ -1,11 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddd1nthjmi8qj"]
+[gd_scene load_steps=12 format=3 uid="uid://ddd1nthjmi8qj"]
 
 [ext_resource type="Script" path="res://Character/player.gd" id="1_ipcir"]
 [ext_resource type="Texture2D" uid="uid://cbaomxlxctlf2" path="res://Character/Assets/tile_0000.png" id="1_k36i1"]
 [ext_resource type="Texture2D" uid="uid://djgkas3wxto8p" path="res://Character/Assets/tile_0001.png" id="3_tfulp"]
+[ext_resource type="PackedScene" uid="uid://dewu4kf0c13c6" path="res://Components/health_component.tscn" id="4_1fygl"]
+[ext_resource type="PackedScene" uid="uid://by1w6ukrhxo1g" path="res://UserInterface/player_ui.tscn" id="5_jvpcu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iupbq"]
 height = 24.0
+
+[sub_resource type="Animation" id="Animation_vssh6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_k36i1")]
+}
 
 [sub_resource type="Animation" id="Animation_w8ucr"]
 resource_name = "idle"
@@ -22,33 +51,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.15, 0.9), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_k36i1")]
-}
-
-[sub_resource type="Animation" id="Animation_vssh6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -99,7 +101,10 @@ _data = {
 "walk": SubResource("Animation_rmrhn")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xa83j"]
+size = Vector2(20, 4.5)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_ipcir")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -124,3 +129,22 @@ drag_vertical_enabled = true
 drag_top_margin = 0.7
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("parent", "ui") instance=ExtResource("4_1fygl")]
+parent = NodePath("..")
+ui = NodePath("../CanvasLayer/PlayerUI")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 10.75)
+shape = SubResource("RectangleShape2D_xa83j")
+debug_color = Color(0.95774, 0, 0.53094, 0.42)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("5_jvpcu")]
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
