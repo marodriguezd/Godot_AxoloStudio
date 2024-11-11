@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://bbs7p3tbdlk4d"]
+[gd_scene load_steps=9 format=4 uid="uid://bbs7p3tbdlk4d"]
 
 [ext_resource type="PackedScene" uid="uid://ddd1nthjmi8qj" path="res://Character/player.tscn" id="1_o1qo5"]
 [ext_resource type="Texture2D" uid="uid://8jb0s55wyonh" path="res://World/Assets/tilemap_packed.png" id="2_fbtwb"]
 [ext_resource type="PackedScene" uid="uid://dtxeqfy6jmexu" path="res://Enemies/Enemy01.tscn" id="3_wc1xa"]
 [ext_resource type="PackedScene" uid="uid://cn2i831kq7jw4" path="res://Objects/coin.tscn" id="4_hfhvd"]
 [ext_resource type="PackedScene" uid="uid://bf1sg8jkueokl" path="res://Enemies/Enemy02.tscn" id="5_18rt4"]
+[ext_resource type="PackedScene" uid="uid://gx13tytdnrft" path="res://Enemies/EndOfTheWorld.tscn" id="6_sh7oj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2gap"]
 texture = ExtResource("2_fbtwb")
@@ -271,3 +272,6 @@ position = Vector2(124, 208)
 
 [node name="Enemy03" parent="." instance=ExtResource("5_18rt4")]
 position = Vector2(288, 205)
+
+[node name="EndOfTheWorld" parent="." instance=ExtResource("6_sh7oj")]
+position = Vector2(288, 327)
